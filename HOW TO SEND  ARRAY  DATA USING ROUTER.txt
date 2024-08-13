@@ -1,0 +1,38 @@
+
+ sendData() {
+    const dataToSend = this.getData;//THIS.GETDATA IS ARRAY DATA
+    const serializedData = JSON.stringify(dataToSend);
+    this.route.navigate(['/balconey'], { queryParams: { data: serializedData } });
+  }
+
+
+in 
+catching data i have to use import { ActivatedRoute } from '@angular/router';
+
+ this.route.queryParams.subscribe(params => {
+      const receivedData = JSON.parse(params['data']);
+      console.log(receivedData);
+     
+    });
+
+
+multiple data in router
+
+  settab: number = 3
+  sendData() {
+    const dataToSend = this.getData;
+    const queryParams = {
+      params: JSON.stringify(dataToSend),
+      params1: this.settab
+    };
+
+    this.route.navigate(['/balconey'], { queryParams });
+  }
+
+
+  this.route.queryParams.subscribe(params => {
+      console.log(params)
+      this.getData = JSON.parse(params['params']);
+      const receivedSettab = params['params1'];
+    });
+    //

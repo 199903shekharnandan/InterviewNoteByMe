@@ -1,0 +1,137 @@
+HOW TO CREATE WEB API IN .NET CORE STEP BY STEP
+==========================================================================================
+FIRST STEP CREATE TABLE 
+create table tbl_Student(
+Id int not null primary key identity(1,1),
+Name nvarchar(250),
+Gender nvarchar(250),
+Class nvarchar(250),
+Address nvarchar(250),
+IsActive bit
+);
+========================================================================================
+SECOND STEP CREATE STOREPROCEDURE
+alter procedure usp_InsertStudentDetails
+@Name nvarchar(250),
+@Gender nvarchar(250),
+@Class nvarchar(250),
+@Address nvarchar(250)
+AS
+BEGIN
+ INSERT INTO tbl_Student (Name, Gender, Class, Address)
+    VALUES (@Name, @Gender, @Class, @Address);
+END
+==========================================================================================
+THIRD STEP CREATE NEW PROJECT IN .NET
+IN ASP.NET CORE WEB API
+==========================================================================================
+FOURTH STEP CREATE FOLDER OF MODEL
+CALLED STUDENT
+public class Student
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+
+        public string? Gender { get; set; }
+
+        public string? Class { get; set; }
+
+        public string? Address { get; set; }
+    }
+=====================================================================================================
+IMPOERTANT TO NOTE AFTER MODEL WE WILL CREATE INTERFACE
+BUT IN THAT WHATEVER STOREPROCEDURE WE HAVE CREATED IN SQL
+WE WILL WRITE FUNCTION NAME HERE LIKE IF WE WANT TO GET ALL 
+DATA OF TABLE THEN WE HAVE TO USE LIST IF WE ARE INSERTING DATA 
+THEN WE NEED TRUE AND FALSE THEN WE HAVE TO USE BOOL
+SO LIKE THIS I HAVE CREATED INTERFACE CALLED ISTUDENTREPOSETRORY 
+AFTER CREATING FOLDER LIKE THIS 
+ public interface IStudentReposetory
+    {
+        bool CreateStudentRecord(Student student);
+
+        bool GetStudentDataById(int id);
+
+        bool UpdateStudentDataById(Student student);
+    }
+===============================================================================================
+FIFTH STEP TO CREATE CONNECTION REPOSETROY
+IMPORTANT IS WE HAVE TO DOWNLOAD ONE PACKAGE
+TO GET AUTOPOPLATED COMMAND OF SQLCOONECTION AND SQLCOMMAND
+Microsoft.Data.SqlClient
+
+SIXTH STEP TO GIVE CONNECTION STRING IN APPSETTING.JSON
+"ConnectionStrings": {
+      
+        "DefaultString": "Data Source=ACU-HYD-LT-841;Initial Catalog=Student;Integrated Security=True ;TrustServerCertificate=true"
+
+    },
+================================================================================================
+SEVENTH IS WE HAVE TO CALL INTERFACE CLASS IN REPOSETORY
+LIKE THIS AND IT WILL GIVE BOILERPALET OF FUNCTION
+WHICH WE HAVE CREATED IN INTERFACE
+public class StudentRepsetory : IStudentReposetory
+{
+}
+=================================================================================================
+EIGHTTH STEP WE HAVE TO CREATE CONSTRUCTOR OF ICONFIGURATION
+IN REPOSETROY WHERE WE WILL WRITE CONNCTION TABLE
+private readonly IConfiguration _configuration;
+
+        public StudentRepsetory(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }  
+====================================================================================================
+NINETH STEP IS TO WRITE CONNECTION FOR IT 
+ public bool CreateStudentRecord(Student student)
+        {
+            int data = 0;
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("DefaultString")))
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_InsertStudentDetails", sqlConnection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Name", student.Name);
+                        cmd.Parameters.AddWithValue("@Gender",student.Gender);
+                        cmd.Parameters.AddWithValue("@Class", student.Class);
+                        cmd.Parameters.AddWithValue("@Address", student.Address);
+                        sqlConnection.Open();
+                        data=cmd.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return data > 0 ? true : false; 
+                
+        }
+=====================================================================================
+TENTH STEP TO CREATE CONTROLEER OF IT BY CREATING CONSTRUCTER WE CAN CALL REPOSETROY FUNCTION LIKE THIS 
+
+        private readonly IStudentReposetory _studentReposetory;
+
+        public StudentController(IStudentReposetory studentReposetory)
+        {
+            _studentReposetory = studentReposetory;
+        }
+
+
+        [Route("CreateStudentRecord")]
+        [HttpPost] 
+        public IActionResult CreateStudentRecord(Student student)
+        {
+            var item = _studentReposetory.CreateStudentRecord(student);
+            return Json(item);
+        }
+==========================================================================================
+
+ELEVENTH STEP TO WRITE SERVICE OF INTERFACE AND REPOSETORY USING ADDTRANSIT IN PROGRAM.CS LIKE THIS 
+builder.Services.AddTransient<IStudentReposetory, StudentRepsetory>();
+

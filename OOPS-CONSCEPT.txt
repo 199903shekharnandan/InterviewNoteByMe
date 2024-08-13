@@ -1,0 +1,110 @@
+1. Encapsulation
+Encapsulation is defined as the wrapping up of data and information under a single unit. It is the mechanism that binds together the data and the functions that manipulate them. In a different way, which is a means of preventing unauthorized interference and misuse of the data.
+
+public class Person
+{
+    private string name; // private field
+
+    public void SetName(string newName)
+    {
+        name = newName; // setting the value through a method
+    }
+
+    public string GetName()
+    {
+        return name; // getting the value through a method
+    }
+}
+
+// Usage
+var person = new Person();
+person.SetName("Alice");
+Console.WriteLine(person.GetName()); // Outputs: Alice
+*****************************************************************************************************************************************************************************************************
+2. Inheritance
+Definition: Inheritance allows a class to inherit methods and properties from another class. This promotes code reusability.
+
+public class Animal
+{
+    public void Eat()
+    {
+        Console.WriteLine("Eating...");
+    }
+}
+
+public class Dog : Animal
+{
+    public void Bark()
+    {
+        Console.WriteLine("Barking...");
+    }
+}
+
+// Usage
+var dog = new Dog();
+dog.Eat(); // Inherited method
+dog.Bark(); // Own method
+
+*****************************************************************************************************************************************************************************************************
+3. Abstraction
+Definition: Abstraction is the concept of hiding complex implementation details and showing only the essential features of an object. It can be achieved using abstract classes or interfaces.
+Example:
+
+public abstract class Shape
+{
+    public abstract void Draw(); // Abstract method
+}
+
+public class Circle : Shape
+{
+    public override void Draw()
+    {
+        Console.WriteLine("Drawing Circle");
+    }
+}
+
+public class Rectangle : Shape
+{
+    public override void Draw()
+    {
+        Console.WriteLine("Drawing Rectangle");
+    }
+}
+
+// Usage
+Shape shape = new Circle();
+shape.Draw(); // Outputs: Drawing Circle
+*****************************************************************************************************************************************************************************************************
+
+4. Polymorphism
+Polymorphism means "many forms", and it occurs when we have many classes that are related to each other by inheritance.
+
+public class Animal
+{
+    public virtual void MakeSound()
+    {
+        Console.WriteLine("Animal sound");
+    }
+}
+
+public class Dog : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine("Bark");
+    }
+}
+
+public class Cat : Animal
+{
+    public override void MakeSound()
+    {
+        Console.WriteLine("Meow");
+    }
+}
+
+// Usage
+Animal myDog = new Dog();
+Animal myCat = new Cat();
+myDog.MakeSound(); // Outputs: Bark
+myCat.MakeSound(); // Outputs: Meow

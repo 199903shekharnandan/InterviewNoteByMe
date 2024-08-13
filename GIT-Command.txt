@@ -1,0 +1,38 @@
+1.The first thing we need to do, is to check if Git is properly installed:
+  git --version
+  git version 2.30.2.windows.1
+
+2.Initialize Your Local Repository:
+  git init 
+
+3.Add Remote Repository:
+  git remote add origin https://vineetkumar0711@dev.azure.com/vineetkumar0711/NGTW_Backup/_git/finalsubmission
+
+4.How to check that in mysolutionwhere i have made changes
+  git status
+
+5.How to add it in my repository that is stagging part
+  git add .
+
+6.How move from stage to commit for our repo.
+  git commit -m "First release of Hello World!"
+
+7.Now How to push to repo
+  git push origin reposetoryname
+
+NOTE:We go to azure portal and clone to visula studio code 
+it will automatically open our code with reposetory in it
+
+Learn:How to create new reposetory
+And How to Create Pipeline
+
+
+in github
+cd path/to/your/project for push in repo
+git init
+git remote add origin https://github.com/199903shekharnandan/Angular_Ngrx.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+

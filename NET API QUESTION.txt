@@ -1,0 +1,282 @@
+###############################################################--------NET C0RE----------############################################################################################################
+IConfiguration:  && Configuration: 
+Interface: IConfiguration is an interface that represents a set of key/value application configuration properties.
+
+Purpose: It's used to read configuration settings from various sources (e.g., appsettings.json, environment variables, command-line arguments).
+
+Usage: Commonly injected into classes via dependency injection to access configuration values.
+
+Configuration: Typically refers to the concrete implementation used to build and load configuration settings during application startup.
+*****************************************************************************************************************************************************************************************************
+app.Use():
+Purpose: app.Use() adds a middleware component to the pipeline and allows the request to be passed on to the next middleware in the pipeline if it does not complete the response.
+Common Use Cases: Logging, authentication, routing, etc., where you want to pass the request down the pipeline even after performing some operations.
+
+app.Run():
+Purpose: app.Run() adds a terminal middleware component to the pipeline, meaning it handles the request and does not call the next middleware. It effectively ends the request processing pipeline.
+Common Use Cases: Handling the final processing of a request, such as returning a specific response or handling errors at the end of the pipeline.
+
+*****************************************************************************************************************************************************************************************************
+
+Dependency Injection and service lifetimes (transient, scoped, singleton).
+Transient
+Definition:
+A Transient service is created every time it is requested. A new instance of the service is created each time it is injected into a class or used by the application.
+Use Case:
+Use Transient when you need a lightweight, stateless service or when each operation requires a new instance.
+
+Scoped
+Definition:
+A Scoped service is created once per request. It is instantiated once per HTTP request in a web application and shared across the various components that need it during that request.
+Use Case:
+Use Scoped when you need to maintain state within a single request, such as when handling web requests
+
+
+3. Singleton
+Definition:
+A Singleton service is created only once throughout the application's lifetime. The same instance is shared across all requests and users of the service.
+Use Case:
+Use Singleton when you need to maintain a global state or expensive-to-create objects that should be shared across the entire application.
+*****************************************************************************************************************************************************************************************************
+Async/Await: Helps you perform tasks in the background without freezing the main thread. async marks a method as asynchronous, and await pauses its execution until the awaited task is complete.
+public async Task<string> FetchDataAsync()
+{
+    // Simulate an asynchronous operation (like downloading data)
+    await Task.Delay(2000); // Wait for 2 seconds
+    return "Data fetched!";
+}
+
+public async Task Run()
+{
+    Console.WriteLine("Fetching data...");
+    string result = await FetchDataAsync(); // Wait for the FetchDataAsync method to complete
+    Console.WriteLine(result); // Outputs: Data fetched!
+}
+*****************************************************************************************************************************************************************************************************
+Delegates: Allows you to reference and pass methods as arguments, enabling dynamic method invocation and more flexible code structures.
+*****************************************************************************************************************************************************************************************************
+
+what is work of using statement
+the using statement ensures that a disposable instance is disposed 
+Disposable (IDisposable): An interface that provides a Dispose method for manually releasing unmanaged resources to avoid memory leaks.
+using Statement: Ensures that an object implementing IDisposable is automatically disposed of when it goes out of scope, providing a clean and efficient way to manage resources.
+
+*****************************************************************************************************************************************************************************************************
+
+1.What is .NET Core, and how does it differ from the traditional .NET Framework?.
+
+ANS-NET Core is an open-source, cross-platform framework for building modern, cloud-based, and IoT applications. It's a redesign of the original .NET Framework to be more modular, lightweight, and scalable. Unlike the traditional .NET Framework, .NET Core is cross-platform, meaning it can run on Windows, Linux, and macOS. It also allows for containerized deployment, making it more suitable for microservices architectures.
+*****************************************************************************************************************************************************************************************************
+
+2.Explain the concept of dependency injection in .NET Core.
+
+ANS-Dependency injection (DI) is a design pattern used to manage dependencies between objects. In .NET Core, DI is built into the framework and is used to provide objects (services or dependencies) to a class instead of having the class create the objects itself. This helps improve the maintainability, testability, and flexibility of applications by decoupling components and promoting inversion of control (IoC). In .NET Core, you can use the built-in DI container to register and resolve dependencies.
+*****************************************************************************************************************************************************************************************************
+
+3.What is middleware in ASP.NET Core?
+
+ANS-Middleware in ASP.NET Core is software components that are executed sequentially in the request processing pipeline. Each middleware component performs a specific function, such as logging, authentication, routing, or error handling. Middleware allows you to modularize your application's request handling logic and to compose complex behaviors by chaining multiple middleware components together. ASP.NET Core provides a rich set of built-in middleware, and you can also create custom middleware to suit your application's needs.
+*****************************************************************************************************************************************************************************************************
+
+4.How does ASP.NET Core handle configuration management?
+
+ANS-4.ASP.NET Core uses the IConfiguration interface and the ConfigurationBuilder class to manage configuration settings. Configuration settings can be stored in various sources such as JSON files, XML files, environment variables, command-line arguments, or Azure Key Vault. 
+
+*****************************************************************************************************************************************************************************************************
+
+5.What is ADO.NET?
+
+ANS-ADO.NET (ActiveX Data Objects for .NET) is a data access technology provided by Microsoft as part of the .NET Framework. It allows developers to interact with data sources such as databases, XML files, and data services. ADO.NET provides a set of classes and libraries for connecting to databases, executing commands (such as SQL queries), and retrieving and manipulating data.
+
+*****************************************************************************************************************************************************************************************************
+
+
+6.What are the main components of ADO.NET?ADO.NET consists of the following main components:
+
+ANS-Connection: Represents a connection to a data source such as a database.
+Command: Represents a command to be executed against a data source, such as SQL queries, stored procedures, or table updates.
+DataReader: Provides a forward-only, read-only stream of data from a data source, typically used for retrieving large amounts of data efficiently.
+DataAdapter: Acts as a bridge between a dataset and a data source, facilitating the retrieval and updating of data.
+DataSet: Represents an in-memory cache of data retrieved from a data source, allowing for disconnected data access and manipulation.
+
+*****************************************************************************************************************************************************************************************************
+
+10.Diffrence in Soap and Rest
+
+SOAP (Simple Object Access Protocol) and REST (Representational State Transfer)
+SOAP messages are typically encoded in XML format 
+
+*****************************************************************************************************************************************************************************************************
+
+
+11.What are some benefits of using .NET Core over the traditional .NET Framework?
+Cross-platform compatibility: .NET Core applications can run on Windows, Linux, and macOS.
+High performance: .NET Core offers improved performance compared to the traditional .NET Framework, especially in terms of startup time and memory usage.
+Container support: .NET Core is designed with containerized deployment in mind, making it easier to deploy applications using Docker or Kubernetes.
+Side-by-side versioning: .NET Core allows multiple versions of the runtime to be installed on the same machine, enabling applications to run with the version they were built against.
+Open-source: .NET Core is open-source, encouraging community contributions and fostering innovation.
+
+*****************************************************************************************************************************************************************************************************
+
+
+app.run()
+.NET, particularly in ASP.NET applications, app.Run() is a method used to configure request processing middleware. It is part of the ASP.NET Core pipeline configuration. This pipeline handles incoming HTTP requests and defines how they are processed and responded to.
+
+*****************************************************************************************************************************************************************************************************
+
+
+Program.cs:
+Program.cs is the entry point of the ASP.NET Core application.
+It contains the Main method, which is the starting point of the application.
+In the Main method, you typically create a WebHostBuilder (in earlier versions) or a HostBuilder (in ASP.NET Core 3.x and later), which is responsible for bootstrapping the application and setting up the web server.
+
+*****************************************************************************************************************************************************************************************************
+
+Startup.cs:
+Startup.cs is where you configure the ASP.NET Core services and the request processing pipeline.
+It contains the Startup class, which typically includes two important methods: ConfigureServices and Configure.
+ConfigureServices method is used to configure the services that the application will use, such as database context, dependency injection services, authentication services, etc.
+*****************************************************************************************************************************************************************************************************
+
+IEnumerable: It is used to iterate over a collection of objects. When you use LINQ with IEnumerable, 
+IQueryable: It extends IEnumerable and is used for querying data from a data source (like a database). With IQueryable, the query is not executed until you enumerate the results
+
+**************************************************************-----------MSSQL---------*********************************************************************************************************
+DROP:
+
+DROP is used to remove database objects such as tables, views, indexes, etc.
+When you DROP a table, all data within the table is permanently deleted, and the table definition is removed from the database schema.
+
+
+TRUNCATE :
+TRUNCATE is used to remove all rows from a table.
+Unlike DELETE, TRUNCATE removes all data from the table without considering any conditions. It effectively empties the table.
+
+*****************************************************************************************************************************************************************************************************
+
+
+Primary Key:
+A primary key is a column or a set of columns that uniquely identifies each record in a table.
+
+Unique Key:
+column data should not match of previous column data
+*****************************************************************************************************************************************************************************************************
+what is trigger
+
+A trigger is a database object that automatically executes a specified set of actions when certain events occur in a database. These events can include data manipulation operations (such as INSERT, UPDATE, DELETE)
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Salary DECIMAL(10, 2)
+);
+
+CREATE TABLE EmployeeAuditLog (
+    LogID INT PRIMARY KEY IDENTITY,
+    EmployeeID INT,
+    Action VARCHAR(50),
+    LogDateTime DATETIME
+);
+
+CREATE TRIGGER LogEmployeeChanges
+ON Employees
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    DECLARE @Action VARCHAR(50);
+
+    IF EXISTS(SELECT * FROM inserted)
+    BEGIN
+        IF EXISTS(SELECT * FROM deleted)
+            SET @Action = 'UPDATE';
+        ELSE
+            SET @Action = 'INSERT';
+    END
+    ELSE
+    BEGIN
+        SET @Action = 'DELETE';
+    END
+
+    INSERT INTO EmployeeAuditLog (EmployeeID, Action, LogDateTime)
+    SELECT 
+        COALESCE(i.EmployeeID, d.EmployeeID), -- COALESCE handles NULL values
+        @Action,
+        GETDATE()
+    FROM inserted i
+    FULL OUTER JOIN deleted d ON i.EmployeeID = d.EmployeeID;
+END;
+*****************************************************************************************************************************************************************************************************
+
+What is schema
+In the context of databases, a schema is a collection of database objects, including tables, views, indexes, and constraints, that are owned by a particular database user or role. A schema provides a way to organize and manage database objects and define the structure of the data stored in a database. It helps in avoiding naming conflicts and provides logical separation of data within a database.
+
+CREATE SCHEMA BookSchema;
+GO
+
+-- Create a schema for storing information related to authors
+CREATE SCHEMA AuthorSchema;
+GO
+
+-- Create a schema for storing information related to borrowers
+CREATE SCHEMA BorrowerSchema;
+GO
+
+CREATE TABLE BookSchema.Books (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(100),
+    AuthorID INT,
+    ISBN VARCHAR(20),
+    -- Other columns
+);
+
+-- Create a table to store author information within the AuthorSchema
+CREATE TABLE AuthorSchema.Authors (
+    AuthorID INT PRIMARY KEY,
+    AuthorName VARCHAR(100),
+    -- Other columns
+);
+
+-- Create a table to store borrower information within the BorrowerSchema
+CREATE TABLE BorrowerSchema.Borrowers (
+    BorrowerID INT PRIMARY KEY,
+    BorrowerName VARCHAR(100),
+    -- Other columns
+);
+
+ organizing database objects into schemas, we can easily manage and maintain the database, as well as control access to specific sets of objects
+
+*****************************************************************************************************************************************************************************************************
+can we join table without refrences
+yes but it will be security violasean and will be effact on data intregration
+*****************************************************************************************************************************************************************************************************
+11.DIFF IN FUNCTION AND Stored Procedure
+
+a.Return Type:
+A stored procedure may or may not return a value.
+A function must return a value.
+
+b.Invoking:
+Stored procedures are invoked using the EXECUTE or EXEC statement or simply by calling the procedure name.
+Functions are invoked as part of an expression, such as in a SELECT statement 
+
+
+c.Performance:
+Functions are usually faster than stored procedures when returning single values, as they are optimized by the query optimizer.
+Stored procedures may be faster when performing complex processing or returning multiple result sets.
+
+-- Stored Procedure
+CREATE PROCEDURE GetEmployeeCount
+AS
+BEGIN
+    SELECT COUNT(*) AS EmployeeCount FROM Employees;
+END;
+
+-- Function
+CREATE FUNCTION GetEmployeeCount()
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Count INT;
+    SELECT @Count = COUNT(*) FROM Employees;
+    RETURN @Count;
+END;
+When to use a stored procedure vs. a function depends on the specific requirements of your application. Stored procedures are typically used for executing a series of statements or complex logic, while functions are used for computations and returning single values.

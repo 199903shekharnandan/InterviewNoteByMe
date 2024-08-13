@@ -1,0 +1,124 @@
+STEP 1  
+This is WITH SIMPLE HTML
+<form [formGroup]="form">
+  <div *ngFor="let name of names">
+    <input #checkboxes type="checkbox" formControlName="checkboxes" (change)="toggleCheckbox(name, $event)">
+    <label>{{ name }}</label>
+  </div>
+  <button type="button" (click)="submit()">Submit</button>
+</form>
+============================================================================
+WITH ANGULAR MATARIAL
+<form [formGroup]="form">
+  <div *ngFor="let name of names">
+    <mat-checkbox #checkboxes (change)="toggleCheckbox(name, $event)">
+      {{ name }}
+    </mat-checkbox>
+  </div>
+  <button mat-raised-button color="primary" type="button" (click)="submit()">Submit</button>
+</form>
+==============================================================================
+<h3>Selected Checkboxes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Checkbox</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="selectedNames.length > 0">
+      <td>{{ selectedNames }}</td>
+      <td><button (click)="edit()">Edit</button></td>
+    </tr>
+  </tbody>
+</table>
+
+
+STEP 2
+HERE I AM TAKING DATA OF CHECKBOX HELP OF VIEWCHILD  @ViewChildren("checkboxes")
+  checkboxes!:any[];
+
+STEP 3 
+THIS IS MY FORMCONTROL
+constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      checkboxes: new FormControl('')
+    });
+  }
+
+STEP 4 
+THIS IS MY DATA  names = ['John', 'Jane', 'Doe', 'Smith', 'Emily'];
+
+STEP 5 THIS IS VARIABLE 
+  selectedCheckboxStates: boolean[] = [];
+  selectedNames: any = [];
+
+STEP 6 WITH   SIMPLE
+//Here we are cheking that is chekedbox value user cheked is true false
+
+  toggleCheckbox(name: string, event: any) {
+    this.selectedCheckboxStates[name] = event.target.checked;
+  }
+==============================================================================
+WITH ANGULAR MATARIAL
+STEP 6
+ toggleCheckbox(name: string, event: any) {
+    this.selectedCheckboxStates[name] = event.checked;
+    console.log(this.selectedCheckboxStates[name]);
+  }
+
+===============================================================================
+STEP 7
+ //Here we are filtering name that is cheked and binding in html
+  submit() {
+    this.selectedNames = this.names.filter(name =>     this.selectedCheckboxStates[name]);
+    console.log('Selected names: ', this.selectedNames);
+
+    //And here once we click submit() checkbox it will clear checkbox value      after printing
+    this.checkboxes.forEach((element) => {
+      element.nativeElement.checked = false;
+    });
+  }
+
+==============================================================================
+WITH ANGULAR MATARIAL
+STEP 7
+ submit() {
+    this.selectedNames = this.names.filter(name => this.selectedCheckboxStates[name]);
+    //console.log('Selected names: ', this.selectedNames);
+
+    this.checkboxes.forEach((checkbox) => {
+      console.log(checkbox);
+
+      checkbox.checked = false;
+    });
+
+  }
+
+==============================================================================
+
+STEP 8
+HERE WE ARE SETING CHECKBOX
+edit() {
+    // Update the checkbox elements
+    this.checkboxes.forEach((element) => {
+      console.log(element);
+      const checkboxName = element.nativeElement.nextElementSibling.innerText.trim();
+      element.nativeElement.checked = this.selectedCheckboxStates[checkboxName];
+    });
+  }
+
+==============================================================================
+WITH ANGULAR MATARIAL
+STEP 8
+  edit() {
+
+    this.checkboxes.forEach((checkbox) => {
+      console.log(checkbox);
+      const checkboxName = checkbox._elementRef.nativeElement.innerText.trim();
+      checkbox.checked = this.selectedCheckboxStates[checkboxName];
+    });
+  }
+
+==============================================================================

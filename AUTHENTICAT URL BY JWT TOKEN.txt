@@ -1,0 +1,179 @@
+-----------------------SP------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ALTER  PROCEDURE [dbo].[apijwtdata] 
+@username nvarchar(100)
+AS
+BEGIN
+    SELECT * FROM LoginJwt where username=@username;
+END;
+
+
+------------------------JWT-TOKEN------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        [HttpPost]
+        [Route("GetSelectData")]
+        public IActionResult GetSelectData([FromBody] UserModel userModel)
+        {
+            if (userModel == null || string.IsNullOrEmpty(userModel.Username))
+            {
+                return BadRequest("Invalid username provided.");
+            }
+            string rslt = string.Empty;
+            List<UserModel> userRecords = new List<UserModel>();
+
+            using (SqlConnection con = new SqlConnection(configuration.GetConnectionString("connectionTable")))
+            {
+                SqlCommand cmd = new SqlCommand("apijwtdata", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@username", userModel.Username);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    UserModel user = new UserModel();
+                    {
+                        user.Username = Convert.ToString(rdr["Username"]);
+                        user.Password = Convert.ToString(rdr["Password"]);
+                        userRecords.Add(user);
+                    }
+                     
+                };
+
+               
+            }
+            if (userRecords.Count > 0)
+            {
+                rslt = JsonConvert.SerializeObject(GenerateToken(userModel.Username));
+            }
+            else
+            {
+                return NotFound("No records found for the provided username.");
+            }
+            return Ok(rslt);
+        }
+
+                
+  
+        private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+
+        public static string GenerateToken(string username, int expireMinutes = 20)
+        {
+            var symmetricKey = Convert.FromBase64String(Secret);
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var now = DateTime.UtcNow;
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+            new Claim(ClaimTypes.Name, username)
+        }),
+
+                Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
+                Issuer = "https://localhost:7090",
+
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(symmetricKey),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var stoken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(stoken);
+
+            return token;
+        }
+
+----------------------THIS YOU HAVE TO PUT PROGRAM.CS--------------------------------------------------------------------------------------------------------------------------------------
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+
+-------------------HERE WE ARE CALLING JWT API TO GET TOKEN-----------------------------------------------------------------------------------------------------------------------------------
+ onSubmit() {
+    if (this.loginForm.valid) {
+
+      const params = {
+        username: this.loginForm.get("email")?.value,
+        password: this.loginForm.get("password")?.value
+      }
+      this.bs.logIn(params).subscribe((t: any) => {
+        console.log(t);
+        localStorage.setItem('token', t);
+        this.route.navigate(['/balconey'])
+
+      })
+
+    }
+  }
+
+------------------------HERE WE ARE CALLING API AND STORING TOKEN IN LOCAL-----------------------------------------------------------------------------------------------------------------------
+ logIn(credentials: any): Observable<any> {
+    return this.http.post<any>(this.JWT_TOKEN_KEY, credentials);
+  }
+
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem("token");
+  }
+
+  getToken1() {
+    return localStorage.getItem("token");
+  }
+-------------------------THEN WE HAVE CREATE AUTH GUARD-----------------------------------------------------------------------------------------------------------------------------------------
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.bs.isAuthenticated()) {
+      return true;
+    } else {
+      alert("you have not logIn")
+      this.route.navigate(['/home'], { queryParams: { returnUrl: state.url } });
+      return false;
+    }
+  }
+----------------------------THEN INTERSEPTER--------------------------------------------------------------------------------------------------------------------------------------------------
+intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.bs.getToken1();
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+    return next.handle(request);
+  }
+--------------------------AGAIN IN APP ROUTING WE HAVE TO RESTRICT USING CANACTIVE-----------------------------------------------------------------------------------------------------------------
+const routes: Routes = [
+  { path: 'balconey', component: BalconeyComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent },
+  { path: 'kitchen', component: KitchenComponent, canActivate: [AuthGuard] },
+  { path: 'room', component: RoomComponent, canActivate: [AuthGuard] },
+  // { path: 'popup', component:  },
+  { path: 'ngrx', component: NgrxComponent, canActivate: [AuthGuard] },
+  { path: 'sweet', component: SweetAlertComponent, canActivate: [AuthGuard] },
+  { path: 'weather', component: WeatherForcastComponent, canActivate: [AuthGuard] },
+
+];
+----------------------------------------------IN APP MODULE YOU HAVE TO PUT THIS ------------------------------------------------------------------------------------------------------------------
+ providers: [BackendService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MyInterceptor,
+      multi: true
+    },],

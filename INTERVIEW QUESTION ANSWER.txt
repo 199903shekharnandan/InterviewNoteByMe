@@ -1,0 +1,513 @@
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                           [Find the Duplicates in an Array]
+THIS IS IN A JAVASCRIPT
+var arr1 = [1, 2, 1, 2, 4];
+var array1 = [];
+
+for (let i = 0; i < arr1.length; i++) {
+    
+    for (let j = i + 1; j < arr1.length; j++) {
+       
+        if (arr1[i] === arr1[j]) {
+            array1.push(arr1[i]);
+        }
+    }
+}
+
+console.log("Duplicates: ", array1); // Output: [1, 2]
+[EXPLAIN]
+-----------
+index[0==1]
+1==2
+match=not
+--------------
+index[0==2]
+1==1
+match=yes
+push     data[1]
+--------------
+index[0==3]
+1==2
+match =not
+------------
+index[0==4]
+1==4
+match=not
+-----------
+index[1==2]
+2==1
+match not
+-----------
+index[1==3]
+2==2
+match =yes
+push  [1,2]
+----------
+index[1==4]
+2==4
+match =not
+----------
+index[2==3]
+1==2
+match =not
+----------
+index[2==4]
+1==4
+match not
+----------
+index[3==4]
+2==4
+match not
+
+
+
+---------------------------------------------------------------------------THIS IS IN C#------------------------------------------------------------------------------------------------------------
+        int[] arr1 = { 1, 2, 1, 2, 4 };
+        List<int> array1 = new List<int>();
+
+       
+        for (int i = 0; i < arr1.Length; i++)
+        {
+           
+            for (int j = i + 1; j < arr1.Length; j++)
+            {
+                
+                if (arr1[i] == arr1[j])
+                {
+                    array1.Add(arr1[i]);
+                }
+            }
+        }
+
+        Console.WriteLine("Duplicates: " + string.Join(", ", array1));
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                        [Find unique Elements]
+var arr1 = [1, 2, 1, 2, 4];
+var uniqueArray = [];
+
+
+for (let i = 0; i < arr1.length; i++) {
+    let count = 0;
+   
+    for (let j = 0; j < arr1.length; j++) {
+        if (arr1[i] === arr1[j]) {
+            count++;
+        }
+    }
+   
+    if (count === 1) {
+        uniqueArray.push(arr1[i]);
+    }
+}
+console.log("Unique elements without duplicates: " + uniqueArray); // Output: Unique elements without duplicates: 4
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+index[0==0]  --first loop
+1==1
+match =yes
+count 1
+--------------
+index[0==1]
+1==2
+match not
+count 1
+--------------
+index[0==2]
+1==1
+match yes
+count 2
+------------
+index[0==3]
+1==2
+match=not
+count 2
+-----------
+index[0==4]
+1==4
+match not
+count 2 --TERMINATED
+LIKE THIS UNTILL ARRAY GET TO LAST VALUE
+----------------------------------------------------------------------------------------------IN-C#-------------------------------------------------------------------------------------------------
+        int[] arr1 = { 1, 2, 1, 2, 4 };
+        List<int> uniqueArray = new List<int>();
+        for (int i = 0; i < arr1.Length; i++)
+        {
+            int count = 0;
+          
+            for (int j = 0; j < arr1.Length; j++)
+            {
+                if (arr1[i] == arr1[j])
+                {
+                    count++;
+                }
+            }
+            // If the element occurs only once, it's unique
+            if (count == 1)
+            {
+                uniqueArray.Add(arr1[i]);
+            }
+        }
+
+        Console.WriteLine("Unique elements without duplicates: " + string.Join(", ", uniqueArray)); // Output: Unique elements without duplicates: 4
+    }
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                         [Find the Largest Element in an Array]
+ var input = [3, 5, 7, 8];
+    var ret = [];
+    var count;
+
+    for (var i = 0; i < input.length; i++) {
+      count = 0; 
+      for (var j = 0; j < input.length; j++) {
+        if (input[i] > input[j]) {
+          count++;
+        }
+      }
+      if (count == input.length - 1) { 
+        ret.push(input[i]);
+      }
+    }
+
+    console.log(ret);
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                             [Remove Duplicates from an Array]
+ var arr1 = [1, 2, 1, 2, 4];
+    var uniqueArray: number[] = [];
+    
+    
+    for (let i = 0; i < arr1.length; i++) {
+
+        -----Check if the current element is not already in the uniqueArray----
+
+        if (!uniqueArray.includes(arr1[i])) {
+        
+            uniqueArray.push(arr1[i]);
+        }
+    }
+    
+    console.log("Array with duplicates removed: ", uniqueArray);
+    }
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+Sum of All Elements in an Array
+ var input = [3, 5, 7, 8];
+    var ret = 0;
+    for (let i = 0; i < input.length; i++) {
+      ret = ret + input[i];
+      console.log(ret)
+
+    }
+
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                  [ASENDING]
+var arr = [1, 2, 1];
+ for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j] > arr[i]) {
+               var temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+console.log("Array in Aescending order:", arr); // Output: [ 1, 1,2]
+
+----------------------------------------------------------------------[DESENDING ORDER]--------------------------------------------------------------------------------------------------------------
+
+var arr = [1, 2, 1];
+ for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j] < arr[i]) {
+               var temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+console.log("Array in Aescending order:", arr); // Output: [4, 2, 2, 1, 1]
+
+
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+ var input = "aabcccdeeee";
+    var output = "";
+    var count = 1;
+
+    for (var i = 0; i < input.length; i++) {
+
+      if (input[i] === input[i + 1]) {
+        count++;
+      } else {
+        output = output + input[i] + count;
+        count = 1;
+      }
+    }
+
+    console.log(output); a2b1c3de4
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                     [FIND EVEN ODD]            
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+for (let i = 0; i < arr.length; i++) {
+  if (arr[i] % 2 == 0) {
+    console.log(arr[i] + " is even");
+  } else {
+    console.log(arr[i] + " is odd");
+  }
+}
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                     [Reverse an Array]
+ unshift() adds new items to the beginning of an array:
+ var array=[1,2,4,3,6,7]
+  var output = [];
+  for (let i = 0; i < array.length; i++){
+    output.unshift(array[i]);
+  }
+
+  
+console.log(output);
+
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                    [HOW TO ADD NESTED ARRAY IN ONE VERIABLE]
+
+
+dummyArray[]=[8,9,5,6[7,8,9]]
+newdata=this.dummyArray.flat()
+answer=[8,9,5,6,7,8,9]
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                 [make the first letter of a string uppercase in JavaScript?]
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+reduce-reduce will add each data based on index
+var a=[2,3,4,5,6]
+let array=a.reduce((a,index)=> a + index,0);
+console.log(array)
+ex-2+3=5
+5+4=9
+9+5=14
+14+6=20
+array answer is (20)
+
+without reducer()
+let a = [2, 3, 4, 5, 6];
+let sum = 0;
+
+for (let i = 0; i < a.length; i++) {
+    sum += a[i];
+}
+
+console.log(sum); // 
+
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+
+
+Question 2: How do you access the first and last elements of an array?
+Answer: You can access the first element of an array using index 0 and the last element using the index array.length - 1. For example:
+
+
+let arr = [1, 2, 3, 4];
+let firstElement = arr[0]; // 1
+let lastElement = arr[arr.length - 1]; // 4
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+
+Question 3: How do you add an element to the end of an array?
+Answer: You can add an element to the end of an array using the push() method. For example:
+
+let arr = [1, 2, 3];
+
+arr.push(4);
+
+console.log(arr); // [1, 2, 3, 4]
+
+ 
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+
+Question 4: How do you remove the last element from an array?
+Answer: You can remove the last element from an array using the pop() method. For example:
+
+
+let arr = [1, 2, 3, 4];
+arr.pop(4);
+console.log(arr); // [1, 2, 3]
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+1: What is the difference between .map() and .forEach()?
+Answer:
+
+.map() and .forEach() are both array methods that allow you to loop through an array, but they differ in what they return.
+
+.map() returns a new array with the same length as the original array, where each element is the result of applying a callback function to the original element.
+.forEach() does not return anything, but it simply executes a callback function on each element of the array.
+Example:
+
+const numbers = [1, 2, 3, 4, 5];
+
+const doubledNumbers = numbers.map(num => num * 2);
+
+console.log(doubledNumbers); // [2, 4, 6, 8, 10]
+
+numbers.forEach(num => console.log(num * 2)); // 2, 4, 6, 8, 10
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+
+
+What is the difference between .filter() and .find()?
+Answer: Both .filter() and .find() are array methods that allow you to search for elements in an array that meet certain criteria.
+
+.filter() returns a new array with all elements that pass a certain test provided by a callback function.
+.find() returns the value of the first element in the array that passes a certain test provided by a callback function.
+Example:
+
+const numbers = [1, 2, 3, 4, 5];
+
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+
+console.log(evenNumbers); // [2, 4]
+
+const firstEvenNumber = numbers.find(num => num % 2 === 0);
+
+console.log(firstEvenNumber); // 2
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+
+slice [ 0   1   2  3  4]
+let array=[227,2229,84,58,9]
+slice.(2,3)(start,end)
+2 is starting point means 84
+3  is end point and [slice does not take end point]
+answers of slice is[84]
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+
+
+splice[ 0  1   2   3 4 5  6  7]
+let array=[22,222,384,58,9,59,88,77]
+splice.(2,3,8,8,9,9)(start,delete,add)
+2 is starting point means 384
+3  it will delete 3 array-[22,222, , , ,59,88,77]
+(8,8,9,9)this data will add[22,222,8,8,9,9,59,88,77]
+answers of splice is[22,222,8,8,9,9,59,88,77]
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                       [SET-TIMEOUT]
+timeoutId: any;
+  intervalId: any;
+
+  constructor() {
+    this.startTimeout();
+    this.startInterval();
+  }
+
+  startTimeout() {
+    this.timeoutId = setTimeout(() => {
+      console.log('Timeout executed');
+    }, 2000);
+  }
+
+  startInterval() {
+    this.intervalId = setInterval(() => {
+      console.log('Interval executed');
+    }, 2000);
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.timeoutId);
+    clearInterval(this.intervalId);
+  }
+
+Key Differences:
+Execution Frequency:
+
+setTimeout executes the callback function once after the specified delay.
+setInterval executes the callback function repeatedly at the specified intervals.
+Use Cases:
+
+Use setTimeout when you need to delay execution of a function once.
+Use setInterval when you need to perform repeated actions at regular intervals.
+Clearing the Timer:
+
+setTimeout can be cleared using clearTimeout.
+setInterval can be cleared using clearInterval.
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                       [CLOSER]
+What is a Closure?
+Closures in JavaScript are an important concept where inner functions can have access to the global ovariables 
+
+counter = 0;
+
+  increment() {
+    // Using a closure to maintain access to 'counter'
+    const incrementByOne = () => {
+      this.counter++;
+    };
+
+    incrementByOne();
+  }
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                     [Hoisting]
+
+ Hoisting is JavaScript's default behavior of moving declarations to the top.  
+ we can host it by just using var
+                                                   
+console.log(x); // Output: undefined
+var x = 5;
+console.log(x); // Output: 5
+
+var x;
+console.log(x); // Output: undefined
+x = 5;
+console.log(x); // Output: 5
+
+hoistedFunction(); // Output: "This function is hoisted!"
+
+function hoistedFunction() {
+  console.log("This function is hoisted!");
+}
+The code above works because the function declaration is hoisted to the top.
+
+console.log(notHoisted); // Output: undefined
+// notHoisted(); // TypeError: notHoisted is not a function
+
+var notHoisted = function() {
+  console.log("This function is not hoisted!");
+};
+
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+                                                                         [SCOPE]
+
+var let and const is decleration type in inside function
+
+const
+if (true) {
+      const x = 10;
+      console.log(x); // 10
+    }
+    console.log(x); // not accesabled
+
+let
+if (true) {
+      let x = 10;
+      console.log(x); // 10
+    }
+    console.log(x); // not accesabled
+
+var
+if (true) {
+      var x = 10;
+      console.log(x); // 10
+    }
+    console.log(x); //  accesabled
+
+list:any{[Q:any,a:any]}=[];
+
+
+
+             

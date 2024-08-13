@@ -1,0 +1,600 @@
+*****************************************************************************************************************************************************************************************************
+***INSTALL ANGULAR APPLICATION**
+1.npm install -g @angular/cli
+2.ng new your-project-name
+3.ng serve
+4. ng g c cn
+5.ng g s s
+6.ng g package name
+
+
+
+*****************************************************************************************************************************************************************************************************
+                                              
+Angular Performance Optimization: Discuss strategies for optimizing the performance of Angular applications. Explain techniques such as lazy loading, code splitting, tree shaking, and optimizing change detection.
+
+Angular Forms: Explain the differences between template-driven forms and reactive forms in Angular. Discuss scenarios where you would choose one approach over the other and best practices for form validation and handling form submissions.
+ANS-Choosing between template-driven and reactive forms in Angular depends on the complexity and requirements of your application:
+Template-Driven Forms: Best for simple, straightforward forms that do not require extensive validation or dynamic behavior.
+Reactive Forms: Ideal for complex, large-scale applications that require fine-grained control over form state and validation.
+*****************************************************************************************************************************************************************************************************
+
+
+RxJS Observables: Discuss the role of RxJS observables in Angular applications. Explain common operators used with observables and scenarios where observables are preferred over promises.
+
+
+
+Angular Testing: Discuss Angular testing methodologies, including unit testing, integration testing, and end-to-end testing. Explain how to write unit tests for Angular components, services, and directives using tools like Jasmine and Karma.
+
+
+
+Angular Internationalization (i18n): Discuss Angular's support for internationalization and localization. Explain how to configure and use Angular's i18n features to create multilingual applications.
+********************************************************************[INTERVIEWEDQUESTION]************************************************************************************************************
+ 
+                                                                      [REACTIVEFORMS]
+(1)<form formGroup="myForm">
+<div><label>Name
+<input formControlName="name">
+</input>
+<div *ngIf="myForm.get('firstName').hasError('required') && myForm.get('firstName').touched">
+      First Name is required.
+    </div>
+</div>
+<div><label>email
+<input formControlName="name">
+</input>
+<div *ngIf="myForm.get('firstName').hasError('required') && myForm.get('firstName').touched">
+      First Name is required.
+    </div>
+</div>
+<div><label>Address
+<input formControlName="name">
+</input>
+<div *ngIf="myForm.get('firstName').hasError('required') && myForm.get('firstName').touched">
+      First Name is required.
+    </div>
+</div>
+<button type="submit">Submit</button>
+</form>
+
+
+const(public fb:formBuilder)
+
+this.myForm=this.fb.group({
+name:['',Validator.required],
+name:['',Validator.required],
+name:['',Validator.required]
+});
+
+
+
+*****************************************************************************************************************************************************************************************************
+**ARCHITECURE OF ANGULAR**
+Angular follows a component-based architectural pattern. 
+(1)Components:
+(2)Modules: 
+(3)Templates:
+(4)Directives: 
+(5)Services
+(6)Dependency Injection (DI): Angular has a built-in dependency injection system that allows you to inject dependencies into components, services, or other objects. This promotes modular and testable code by making components and services more reusable and easier to test.
+*****************************************************************************************************************************************************************************************************
+WHAT IS   BrowserModule,ReactiveFormsModule,CommanModule
+[BrowserModule]==> is one of the fundamental modules in Angular and is required when you want to build a web application that [runs in a web browser].
+
+[ReactiveFormsModule] ==>is a module from the @angular/forms package, specifically designed for working with [Reactive forms Angular applications]
+
+[Comman Module]==>CommonModule only contains information for common directives such as ngIf and ngFor which are needed in most templates,
+Common Module" typically refers to a module that contains a set of commonly used directives, pipes, and other features that
+can be imported and used across different parts of your Angular application.
+
+[FormModule]==>is used to create [template-driven forms]
+Angular, you can create forms using two main approaches: [template-driven forms] and [reactive forms].
+
+READ THIS TOPIC 
+how to do Unit Testing and End-to-End Testing in angular
+*****************************************************************************************************************************************************************************************************
+what is TypeScript
+typescript is strongly typed javascript language 
+which is work on oops concept 
+
+npm--nodes packages which makes js package easly
+*node modules--is the folder where all package are installed
+
+Diff in ng serve and ng build
+ng serve build in memory
+ng build in hard disk
+in production ng build command are used
+
+*****************************************************************************************************************************************************************************************************
+
+                                   [Binding]
+ 
+(i) property binding
+ANS-roperty, enclose it in square brackets, [], which identifies the property as a target property.
+
+(ii)event binding
+ANS-The event binding listens for the button's click events and calls the component's method whenever a click occurs.
+
+(iii) two-way binding, 
+ANS-Use two-way binding to listen for events and update values simultaneously between parent and child components.Help oF [(ngmodel)]
+
+(iv) interpolation
+ANS-Interpolation refers to embedding expressions into marked up text. By default, interpolation uses the double curly braces {{ and }} as delimiters
+
+
+(15)Directives
+ANS-directive help you to attached behaviour to your html dom
+ex=[(ngmodule)],[],{{}},it is nothing just syntax which change behaviour
+
+
+(16)What is diff kind of directive
+[Structure directive]  --it change the structure by adding DOM element ex *ngfor and *ngif
+[attributes directive] --it changes the style of html EX-*ngStyle
+[component directive]  -- it is user control directive
+
+(i)Reactive form validation
+ANS-With the help of formgroup name we can do same thing like templete validation and in reactive we can pass validators in this to check forms
+
+
+(ii)custom validators
+ANS-we can do custom validators in form builder help of validators requirde
+
+(iii)Cross-field validation
+ANS-form control names as arguments and by using these names we can simply select the FormControl from the FormGroup by using formgroup.controls[controlname]
+
+(17)DOM Element
+ANS-Document object model it is responsible to reparsent the content of web page
+
+*****************************************************************************************************************************************************************************************************
+(14)LIFE CYCLE HOOKS
+ANS-Angular applications can use lifecycle hook methods to tap into key events 
+There is 7 important life cycle hooks
+(1)ngOnChanges: This hook is called whenever one or more input properties of a component change. It receives a SimpleChanges
+object that provides information about the previous and current values of the input properties.
+(2)ngOnInit: This hook is called once, after the component is initialized. It is commonly used for initialization logic
+that does not depend on input properties.
+(3)ngOnDestroy: This hook is called just before the component is destroyed. It's commonly used to clean up resources
+ such as subscriptions or timers to prevent memory leaks.
+(4)ngAfterViewChecked():- perform additional logic that depends on the latest changes in the view.
+
+*****************************************************************************************************************************************************************************************************
+(15)Lazy Loading
+ANS-For lazy loading we have seprate our projct in module and in that we can do lazy loading help of
+loadChildren (instead of component) in your ngModule routes configuration 
+lazy loading is one of the most useful it helps to download web pages in chunk
+
+ 
+[preloading and lazy-loading modules]
+(i)Lazy Loading: Defers the loading of modules until they are needed, improving initial load time by loading only essential modules upfront.
+(ii)Preloading: Loads lazy-loaded modules in the background after the initial page load, improving user experience by reducing the delay when navigating to lazy-loaded routes.
+Both techniques can be used together to optimize the loading of modules in Angular applications, depending on the specific requirements and performance goals.
+IMPLEMENT
+STEP (1) import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+STEP (2) const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+  { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },
+  // Other routes...
+];
+STEP(3) IMPORT IT IN NGMODULE
+@NgModule({
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule]
+})
+When to Use PreloadAllModules
+Small to Medium-sized Applications:
+When Not to Use PreloadAllModules
+Large Applications:
+
+
+(17)Activate Routes
+ANS-The ActivatedRoute is an injected router service that makes use of observables to get information about a route path and parameters.
+
+
+*****************************************************************************************************************************************************************************************************
+Dependency injections
+ANS-The most common way to inject a dependency is to declare it in a class constructor
+Components dependent on other components can be easily worked around using this feature
+dependency injection is design pattern in which object can be pass. 
+Dependency Injection, or DI, is a design pattern and mechanism for creating and delivering some parts of an application to other parts of an application that require them. Angular supports this design pattern and you can use it in your applications to increase flexibility and modularity.In Angular, dependencies are typically services, but they also can be values, such as strings or functions. An injector for an application (created automatically during bootstrap) instantiates dependencies when needed, using a configured provider of the service or value. 
+
+*****************************************************************************************************************************************************************************************************
+[What is Service]
+service in Angular is a class that provides a specific functionality or feature, which can be shared across multiple parts of an application.. Services are singleton instances, managed by Angular's dependency injection system, and are used to centralize data and logic in an application.
+
+*****************************************************************************************************************************************************************************************************
+[What are signals?]
+Signals in Angular are a reactive state management feature that allows components and services to efficiently track and react to state changes. They provide a declarative way to handle state updates, ensuring that only the necessary parts of the application re-render when the state changes, leading to better performance and more maintainable code.
+"For instance, a signal can be used to manage the state of a counter. When the counter value changes, any component bound to this signal automatically updates its view without manual intervention or complex state management logic.
+*****************************************************************************************************************************************************************************************************
+[what is DynamicComponent in angular]
+In Angular, a dynamic component is a component that is created and inserted into the application at runtime, as
+IMPLEMENT
+IN HOST COMPONENT WHERE YOU WANT TO CALL 
+STEP 1.
+import { ViewChild, ViewContainerRef, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { DynamicComponent } from 'src/app/dynamic/dynamic.component';
+STEP 2. IN HTML
+<button (click)="loadComponent('dynamic')">Load dynamic Component</button>
+<ng-template #dynamicContainer></ng-template>
+STEP 3 IN TS
+ @ViewChild('dynamicContainer', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+STEP 4.constructor(private resolver: ComponentFactoryResolver){}
+STEP 5.
+ loadComponent(type: string) {
+    console.log(type);
+
+    this.container.clear();
+    let componentFactory;
+
+    if (type === 'dynamic') {
+      componentFactory = this.resolver.resolveComponentFactory(DynamicComponent);
+    }
+
+    if (componentFactory) {
+      this.container.createComponent(componentFactory);
+    }
+  }
+
+*****************************************************************************************************************************************************************************************************
+
+[Angular Decorators and Meta Data]
+it extend the functionality of classes so it can configure expacted behaviourand start with @symbol
+(i)[Class Decorators]:--Used to decorate classes. Examples include @Component, @NgModule, @Directive, and @Pipe. These decorators provide metadata about how the class should be processed by Angular.
+(ii)[Proparty Decoretor]:-- We can achived help of @input @output
+
+(iii)[Function Decoretor]:-- Hostlistner used for method insisde the class and we use help of selector in our html
+
+[WHAT IS ANGULAR DSL]
+Angular DSL refers to the specialized language  [BASICALLY WHAT EVER DATA START WITH @DECORETOR THAT IS CALLED DSL] These constructs make it easier to manage the structure and behavior of Angular applications in a concise and readable way. Examples include the use of decorators like @Component, template syntax like *ngIf and *ngFor, and form directives like ngModel and formControlName.
+*****************************************************************************************************************************************************************************************************[what is formArray] AND IT ALSO CALLED DYNAMIC FORM CONTROL 
+When to Use FormArray
+FormArray is particularly useful for scenarios where you need to manage a variable number of form controls, such as a list of items that can be added or removed by the user.
+implement 
+form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      items: this.fb.array([]),
+    });
+  }
+
+  get items() {
+    return this.form.get('items') as FormArray;
+  }
+
+  addItem() {
+    this.items.push(this.fb.control('', Validators.required));
+  }
+
+  removeItem(index: number) {
+    this.items.removeAt(index);
+  }
+
+  submit() {
+    console.log(this.form.value);
+  }
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div formArrayName="items">
+    <div *ngFor="let item of items.controls; let i = index">
+      <input [formControlName]="i" />
+      <button type="button" (click)="removeItem(i)">Remove</button>
+    </div>
+  </div>
+  <button type="button" (click)="addItem()">Add Item</button>
+  <button type="submit">Submit</button>
+</form>
+
+*****************************************************************************************************************************************************************************************************
+[Angular Universal]== enables server-side rendering for Angular applications, improving performance user experience. By setting up Angular Universal using the Angular CLI, configuring server-side rendering with an Express server, and building and serving the application, you can render Angular applications on the server and send fully rendered HTML to clients.
+
+The main steps are:
+
+Add Angular Universal to your project.
+Configure server-side rendering.
+Build and serve the application.
+This process ensures that your Angular application can leverage the benefits of server-side rendering effectively.
+
+*****************************************************************************************************************************************************************************************************
+ [Route Guards]
+There are five types of route guards in Angular:
+ANS-preventing unauthorized access. based on conditions
+CanActivate: This interface is used to determine if a route can be activated.
+CanActivateChild: Similar to CanActivate, but it applies to child routes.
+CanDeactivate: Used to determine if a route can be deactivated.
+CanLoad: Used to determine if a feature module can be loaded lazily.
+COMMAND-ng generate guard your-guard-name
+
+secured route patterns
+ANS-Angular supports the CanActivate interface to authorize parent routes. This interface is implemented by a class that determines whether the router
+can activate the route or not.
+*****************************************************************************************************************************************************************************************************
+Difference between interpolation and property binding.
+Interpolation: Limited to binding text content within HTML elements. It can only bind to string properties or expressions that evaluate to a string.
+Property Binding: More versatile as it can bind to any property of an HTML element, Angular component, or directive. This includes not just text but also attributes, class properties, styles, etc.
+*****************************************************************************************************************************************************************************************************
+
+Creating custom directives.
+(STEP) 1
+ng generate directive highlight
+Step 2: Implement the Directive
+@Directive({
+  selector: '[appHighlight]'
+})
+constructor(private el: ElementRef) {}
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight('yellow');
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+
+  private highlight(color: string) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+
+Step 3: Use the Directive in a Component Template
+<p appHighlight>
+  Hover over this paragraph to see the highlight effect.
+</p>
+
+Summary
+Creating custom directives in Angular allows you to extend the behavior of HTML elements in your application
+*****************************************************************************************************************************************************************************************************
+Differences between JIT and AOT compilation.
+JIT Compilation: Compiles Angular templates in the browser at runtime, suitable for development and smaller projects where compilation time is not a concern.
+AOT Compilation: Pre-compiles Angular templates during the build process, resulting in faster startup time and smaller bundle size, suitable for production deployments and larger applications.
+Both JIT and AOT compilation have their advantages and use cases, and the choice depends on factors like project size, performance requirements, and development workflow preferences.
+
+*****************************************************************************************************************************************************************************************************
+(29)[VIEW-CHILD] 
+
+ViewChild allows a component to access a child component, directive, or element in the template.
+ViewChild is commonly used for accessing child components or elements within the component's template
+IMPLEMENT
+ViewChild==>Suppose you have a child component called ChildComponentYes
+In the parent component, you can use ViewChild to access the ChildComponent.
+STEP(1)IN PARENT COMPONENT
+import { ChildComponent } from './child.component';
+ @ViewChild(ChildComponent) childComponent!: ChildComponent;
+ngAfterViewInit() {
+    console.log(this.childComponent); // Access the child component here
+  }
+
+[CONTEN CHILD]
+ContentChild is used to access elements or components projected into the parent component's template through content projection (<ng-content>
+
+*****************************************************************************************************************************************************************************************************
+@HostListener: 
+HostListener decorator allows a component to listen for events on the host element (the element to which the component is attached). It provides a way to define event handlers directly within the component class.
+  @HostListener('click', ['$event'])
+  
+ 
+onClick(event: MouseEvent) {
+    console.log('Clicked!', event);
+  }
+
+*****************************************************************************************************************************************************************************************************
+
+(35)Angular custom pipes
+ANS-Transforming the data help of pipes like changing dates and data
+Pipes-  custom pipes
+ANS-CurrencyPipe
+DatePipe
+DecimalPipe
+JsonPipe
+LowerCasePipe
+UpperCasePipe
+PercentPipe
+SlicePipe
+
+
+(36) What is Rxjs 
+rxjs is library and terms stands for reactive extension for javascript it is use so we can use observavble
+
+Q--diff in for roots and for child
+forRoot creates a module that contains all the directives, the given routes, and the router service itself. forChild creates a module 
+that contains all the directives and the given routes, but does not include the router service. 
+
+
+(35) component and directive
+component are tyipcally used to create ui face
+directive is used to add behaviour and design element
+
+(36) reactive forms and templetes driven form
+reactive created by form control and more scalbal with low api
+templetes driven form created by directives less scalbal with api
+
+(40)what does packge.json do-
+it has name of project , command , version
+we can add our command in package.json
+
+Q--What is the difference between angular.JSON 
+Angular json --centralized location for defining these settings easier to manage your Angular application's configuration 
+ts configuration -- root folder of the project
+ 
+
+(41)what does packge.lock.json do-
+in that we get more details of dependecies version it comes from packege version name in package .json
+
+
+(10)What is view encapsulation in Angular?
+ANS-We can send style from one components to diff help of behavioursubject
+
+
+(11)authentication 
+ANS-authentication  is the process of recognizing the user’s identity
+
+(12)authorization
+ANS-is the process of giving permission to the user to access certain resource in the system
+
+
+*****************************************************************************************************************************************************************************************************
+
+(16)Http and Observable Services
+ANS-HTTP response is nothing but the Observable returned by HttpClient.get
+
+
+(42)Promises and Observables are two different mechanisms used in JavaScript and Angular for handling asynchronous operations and 
+managing data flow. They have distinct characteristics, use cases, and behaviors.
+
+Promises:
+
+Single Value: A Promise represents a single value (either a resolved value or an error) that will be available at some point in the future.
+
+Eager Execution: Promises are eager, which means they execute as soon as they are created.
+
+Immediate Resolution or Rejection: Promises resolve or reject once, meaning they can't emit multiple values over time.
+
+Cancellation: Promises do not support cancellation of asynchronous operations.
+
+Error Handling: Promises handle errors using .catch() or .then(onFulfilled, onRejected).
+
+
+
+(43)Observables:
+
+Multiple Values Over Time: Observables represent a stream of values that can be emitted over time. They can emit zero, one, or multiple values.
+
+Lazy Execution: Observables are lazy, which means they do not execute until someone subscribes to them.
+
+Continuous Data Stream: Observables can emit multiple values over time, making them suitable for handling events, data streams, and real-time data.
+
+Cancellation: Observables support cancellation of asynchronous operations using the unsubscribe method.
+
+Error Handling: Observables provide various error handling mechanisms, including .catch(), .retry(), and more.
+
+Later, you can unsubscribe to stop the data stream.subscription.unsubscribe();
+
+
+(44)Subject: A basic subject that acts as both an observable and an observer. It doesn't have a memory of past
+ values, and when you subscribe to it, you will only get values emitted after the subscription.
+
+(45)BehaviorSubject: A subject that has a memory of the most recent value it emitted. When you subscribe to a BehaviorSubject,
+you immediately receive the last emitted value, and then you continue to receive new values as they are emitted.
+
+
+*****************************************************************************************************************************************************************************************************
+
+(50)DIFF IN FILTER  MAP AND FOREACH
+FILTER:- FILTER IS BASED  ON CONDITION IT WILL TRANSFAR DATA BASED ON WHAT WE ARE PASSING IN CONDITION OF FILTER [Array Will Decrease]
+MAP:-MAP WILL CREATE NEW DATA OF EACH ARRAY It returns a new array with the same number of elements as the original [array will not decrease]
+FOREACH:- It is typically used when you want to perform some operation on each element of an array It does not return 
+FORLOOP:-THIS IS ONLY FOR CHECK LENGTH OF DATA
+*****************************************************************************************************************************************************************************************************
+**DIFF IN IF ELSE AND [||] [&&] SWITCH
+(1)if and else:
+if checks a condition, and if the condition is true, it executes a block of code.
+else is often used in conjunction with if. If the condition in if is false, the code inside the else block will be executed.
+(2)OR[||]  [AND] AND[&&]
+|| returns true if at least one of the conditions is true.
+&& returns true only if all of the conditions are true.
+(3)SWITCH
+It's often used when you want to test a single variable against multiple values.
+EXAMPLE-  <ng-container [ngSwitch]="value.tenderTypeCode">
+                  <ng-container *ngSwitchCase="'CHK'">eCheck</ng-container>
+                  <ng-container *ngSwitchCase="'DCARD'">Debit Card</ng-container>
+                  <ng-container *ngSwitchCase="'CCARD'">Credit Card</ng-container>
+                  <ng-container *ngSwitchDefault>{{ value.tenderTypeCode }}</ng-container>
+                </ng-container>
+
+*****************************************************************************************************************************************************************************************************
+                                                 [NGRX]
+What is NgRx?: NgRx is a state management library for Angular applications, inspired by Redux. It helps manage application state in a centralized store, making it predictable and easier to manage.
+
+What are the core principles of NgRx?: The core principles of NgRx include single source of truth, immutability, and unidirectional data flow. Understanding these principles is crucial for using NgRx effectively.
+
+What are the main building blocks of NgRx?: NgRx consists of several building blocks, including actions, reducers, effects, selectors, and the store. Each plays a specific role in managing state in an NgRx-powered application.
+
+What is an action in NgRx?: Actions are plain JavaScript objects that represent events or user actions in an application. They are dispatched to the store and are used by reducers to update the state.
+
+What is the role of effects in NgRx?: Effects are used for handling side effects such as asynchronous operations (e.g., HTTP requests). They listen for dispatched actions, perform side effects, and dispatch new actions in response.
+
+
+Answer:
+NgRx is a framework for building reactive applications in Angular. It provides state management, handling of side effects, entity collection management, and router bindings. NgRx is inspired by Redux and uses RxJS to implement its features.
+
+2. Why do we need NgRx in Angular applications?
+Answer:
+NgRx helps manage complex state in Angular applications by providing a predictable state container. It simplifies state management by maintaining a single source of truth for the application state, making it easier to debug, test, and maintain. NgRx also helps handle side effects, such as asynchronous operations, in a structured way.
+
+
+3. Explain the core principles of NgRx.
+Answer:
+The core principles of NgRx include:
+
+Single Source of Truth: The state of the entire application is stored in a single tree.
+State is Read-Only: The only way to change the state is to emit an action.
+Changes are Made with Pure Functions: Reducers are pure functions that take the current state and an action, and return a new state.
+
+4. What are actions in NgRx?
+Answer:
+Actions are plain objects that describe an event in the application. Each action has a type (a string constant) and optionally a payload. Actions are dispatched to the store to initiate state changes.
+
+Example:
+export const increment = createAction('[Counter Component] Increment');
+
+5. What are reducers in NgRx?
+Answer:
+Reducers are pure functions that specify how the application's state changes in response to actions. They take the current state and an action as arguments and return a new state.
+
+Example:
+export const counterReducer = createReducer(
+  initialState,
+  on(increment, state => state + 1),
+  on(decrement, state => state - 1),
+  on(reset, state => 0)
+);
+
+
+6. What are selectors in NgRx?
+Answer:
+Selectors are pure functions used to extract and derive pieces of state from the store. They help avoid redundancy and improve code reusability.
+
+Example
+export const selectFeature = (state: AppState) => state.feature;
+export const selectFeatureCount = createSelector(
+  selectFeature,
+  (state: FeatureState) => state.count
+);
+
+
+7. What are effects in NgRx?
+Answer:
+Effects are used to handle side effects in NgRx applications, such as fetching data from an API or accessing local storage. They listen for specific actions and perform tasks outside the store, then dispatch new actions to the store.
+
+Example:
+@Injectable()
+export class CounterEffects {
+  loadCount$ = createEffect(() => this.actions$.pipe(
+    ofType(loadCount),
+    mergeMap(() => this.counterService.getCount()
+      .pipe(
+        map(count => loadCountSuccess({ count })),
+        catchError(error => of(loadCountFailure({ error })))
+      ))
+  ));
+
+  constructor(
+    private actions$: Actions,
+    private counterService: CounterService
+  ) {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
